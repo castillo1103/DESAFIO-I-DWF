@@ -39,4 +39,19 @@ public class BookServiceImpl implements BookService {
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
+
+    @Override
+    public Book updateBook(Long id, Book updatedBook) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
+            if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            book.setTitle(updatedBook.getTitle());
+            book.setAuthor(updatedBook.getAuthor());
+            book.setYear(updatedBook.getYear());
+        return bookRepository.save(book);
+    } else {
+        return null;
+    }
+}
+    
 }
